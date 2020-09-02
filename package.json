@@ -61,11 +61,6 @@
   },
   "unpkg": "lib/index.js",
   "style": "lib/theme-chalk/index.css",
-  "gitHooks": {
-    "pre-commit": "lint-staged",
-    "commit-msg": "node build/verifyCommit.js",
-    "pre-push": "npm run test:unit"
-  },
   "lint-staged": {
     "*.{js,vue}": "eslint"
   },
@@ -150,7 +145,7 @@
     "mini-css-extract-plugin": "^0.4.1",
     "mitt": "^2.1.0",
     "mocha": "^6.0.2",
-    "node-sass": "^4.11.0",
+    "node-sass": "^4.14.1",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "postcss": "^7.0.14",
     "prettier": "^2.0.5",
