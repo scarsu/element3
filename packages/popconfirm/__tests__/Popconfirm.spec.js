@@ -48,25 +48,37 @@ describe('Popconfirm', () => {
 
   it('Slot', () => {
     const wrapper = mount(Popconfirm, {
-      props: { hideIcon: true }
+      slots: {
+        reference:
+          '<el-button class="reference-slot">reference slot</el-button>'
+      }
     })
-    expect(wrapper.find('.el-popover__reference').is('button')).toBe(true)
-    expect(wrapper.find('.el-popover__reference').text()).toBe('删除')
+    expect(wrapper.find('.reference-slot').text()).toBe('reference slot')
   })
 
-  it('Events:confirm event', () => {
-    const wrapper = mount(Popconfirm)
-    wrapper.find('.el-popover__reference').click()
-    const confirmBtn = wrapper.findAll('.el-popconfirm__action>button')[1]
-    confirmBtn.trigger('click')
-    expect(wrapper.emitted('confirm')).toBeTruthy()
+  it('Events:confirm event', async () => {
+    const wrapper = mount(Popconfirm, {
+      slots: {
+        reference:
+          '<el-button class="reference-slot">reference slot</el-button>'
+      }
+    })
+    await wrapper.find('.reference-slot').trigger('click')
+    const confirmBtn = wrapper.find('.el-popconfirm__action>button:last-child')
+    await confirmBtn.trigger('click')
+    expect(wrapper.emitted('onConfirm')).toBeTruthy()
   })
 
-  it('Events:cancel event', () => {
-    const wrapper = mount(Popconfirm)
-    wrapper.find('.el-popover__reference').click()
-    const cancelBtn = wrapper.findAll('.el-popconfirm__action>button')[0]
-    cancelBtn.trigger('click')
-    expect(wrapper.emitted('cancel')).toBeTruthy()
+  it('Events:cancel event', async () => {
+    const wrapper = mount(Popconfirm, {
+      slots: {
+        reference:
+          '<el-button class="reference-slot">reference slot</el-button>'
+      }
+    })
+    await wrapper.find('.reference-slot').trigger('click')
+    const cancelBtn = wrapper.find('.el-popconfirm__action>button:first-child')
+    await cancelBtn.trigger('click')
+    expect(wrapper.emitted('onCancel')).toBeTruthy()
   })
 })
